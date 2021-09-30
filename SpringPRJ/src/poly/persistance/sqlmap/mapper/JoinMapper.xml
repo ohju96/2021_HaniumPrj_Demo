@@ -12,7 +12,11 @@
 			USER_NAME,
 			USER_DATE,
 			USER_GENDER,
-			USER_ALLERGY
+			USER_ALLERGY,
+			REG_ID,
+			REG_DT,
+			CHG_ID,
+			CHG_DT
 		) values(
 			#{user_id},
 			#{user_pwd},
@@ -20,14 +24,18 @@
 			#{user_date},
 			#{user_gender},
 			#{user_allergy}
+			#{user_id},
+	   	     SYSDATE,
+	   	    #{user_id},
+	   	     SYSDATE
 		)
 	</insert>
 	
-	<!-- ======== 아이디 중복 체크 ======== -->
-	
-	<select id="checkID" parameterType="ProjectsDTO" resultType="ProjectsDTO">
-	SELECT * FROM USER_INFO
-	WHERE USER_ID = #{user_id}
+	<!-- 이메일(아이디)로 회원 가입 중복 방지하기 -->		
+	<select id="getUserExists" parameterType="ProjectsDTO" resultType="ProjectsDTO">
+		 SELECT 
+		 (CASE WHEN USER_ID IS null THEN 'Y' ELSE 'N' END) AS EXISTS_YN
+		 FROM USER_INFO 
+		 WHERE USER_ID=#{user_id}
 	</select>
-
 </mapper>

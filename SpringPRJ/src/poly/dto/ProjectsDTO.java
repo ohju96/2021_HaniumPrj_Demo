@@ -15,7 +15,47 @@ public class ProjectsDTO {
 	private String board_contents;
 	private String board_seq;
 	private String board_regdate;
+	private String reg_id;
+	private String reg_dt;
+	private String chg_id;
+	private String chg_dt;
 	
+	// 회원가입시, 중복가입을 방지 위해 사용할 변수
+	// DB를 조회해서 회원이 존재하면 Y값을 반환함
+	// DB테이블에 존재하지 않는 가상의 컬럼(ALIAS)
+	private String exists_yn;
+	
+	
+	public String getReg_id() {
+		return reg_id;
+	}
+	public void setReg_id(String reg_id) {
+		this.reg_id = reg_id;
+	}
+	public String getReg_dt() {
+		return reg_dt;
+	}
+	public void setReg_dt(String reg_dt) {
+		this.reg_dt = reg_dt;
+	}
+	public String getChg_id() {
+		return chg_id;
+	}
+	public void setChg_id(String chg_id) {
+		this.chg_id = chg_id;
+	}
+	public String getChg_dt() {
+		return chg_dt;
+	}
+	public void setChg_dt(String chg_dt) {
+		this.chg_dt = chg_dt;
+	}
+	public String getExists_yn() {
+		return exists_yn;
+	}
+	public void setExists_yn(String exists_yn) {
+		this.exists_yn = exists_yn;
+	}
 	public String getBoard_seq() {
 		return board_seq;
 	}
