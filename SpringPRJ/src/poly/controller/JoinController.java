@@ -41,7 +41,13 @@ public class JoinController {
 		@RequestMapping(value = "user/user/join.do")
 		public String insertinfo(HttpServletRequest request, ModelMap model) throws Exception {
 			log.info("로그인 로직 실행");
-
+			
+		  //회원가입 결과에 대한 메시지를 전달할 변수
+		    String msg= "";
+		    
+		  //웹 회원정보 입력화면 에서 받는 정보를 저장할 변수
+		    ProjectsDTO uDTO = null;
+		    try { 
 			String id = CmmUtil.nvl(request.getParameter("id"));
 			String password = CmmUtil.nvl(request.getParameter("pwd"));
 			String name = CmmUtil.nvl(request.getParameter("name"));
@@ -60,7 +66,9 @@ public class JoinController {
 			log.info("birth : "+date);
 			log.info("gender : "+gender);
 			log.info("allergy : "+allergy);
-			ProjectsDTO uDTO = new ProjectsDTO();
+			
+			//웹(회원정보 입력화면)에서 받는 정보를 저장할 변수를 메모리에 올리기
+			uDTO = new ProjectsDTO();
 
 			uDTO.setUser_id(id);
 			//비밀번호는 절대로 복호화 되지 않도록 해시 알고리즘으로 암호화함
@@ -73,13 +81,31 @@ public class JoinController {
 			int res = JoinService.insertinfo(uDTO);
 
 			
-			if (res == 0) {
-				log.info("회원가입 실패");
-			} else if (res == 1) {
-				log.info("회원가입 성공");
-			} 
+			if (res==1) {
+	            msg = "회원가입에 성공하였습니다.";
+	         //추후 회원가입 입력화면에서 ajax를 활용해서 아이디 중복, 이메일 중복을 체크하길 바람
+	         }else if (res==2) {
+	            msg = "이미 가입된 아이디 입니다.";
+	         }else {
+	            msg = "오류로 인해 회원가입이 실패하였습니다";
+	         }
 			
-			model.addAttribute("res", String.valueOf(res));
+	      }catch(Exception e) {
+	         //저장이 실패되면 사용자에게 보여줄 메시지
+	         msg = "실패하였습니다 :" + e.toString();
+	         log.info(e.toString());
+	         e.printStackTrace();
+	         
+	      }finally {
+	         log.info(this.getClass().getName() + ".insertUserInfo end!");
+	         //회원가입 여부 결과 메시지 전달하기
+	         model.addAttribute("msg", msg);
+	         //회원가입 여부 결과 메시지 전달하기
+	         model.addAttribute("uDTO", uDTO);
+	         //변수 초기화(메모리 효율화 시키기위해 사용함)
+	         uDTO = null;
+	      }
+			
 			return "/alert/joinAlert";
 		}
 		
