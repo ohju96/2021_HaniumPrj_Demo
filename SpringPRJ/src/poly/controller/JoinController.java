@@ -106,7 +106,7 @@ public class JoinController {
 	         uDTO = null;
 	      }
 			
-			return "/alert/joinAlert";
+			return "/alert/JoinMsg";
 		}
 		
 		

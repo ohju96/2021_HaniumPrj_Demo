@@ -39,6 +39,7 @@ public class JoinService implements IJoinService {
 	      if(rDTO == null) {
 	         rDTO = new ProjectsDTO();
 	      }
+	      log.info(rDTO.getExists_yn());
 	      //중복된 회원 정보가 있는 경우, 결과값을 2로 변경하고 더이상 작업을 진행하지않음
 	      if(CmmUtil.nvl(rDTO.getExists_yn()).equals("Y")){
 	         res=2;

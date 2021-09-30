@@ -46,7 +46,7 @@ public class LoginController {
 		log.info(mDTO.getUser_pwd());
 
 		mDTO = LoginService.Loginpage(mDTO);
-		log.info("여기까지 오나 ??");
+		log.info(mDTO.getUser_id());
 		
 		log.info("여기까지 오나 ??122");
 		int res = 0;

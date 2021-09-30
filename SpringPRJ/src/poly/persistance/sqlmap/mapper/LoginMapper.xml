@@ -5,7 +5,8 @@
 
 	
 	<select id="checkLogin" parameterType="ProjectsDTO" resultType="ProjectsDTO">
-	SELECT * FROM USER_INFO
+	SELECT USER_ID,USER_PWD
+	FROM USER_INFO
 	WHERE USER_ID = #{user_id} and USER_PWD = #{user_pwd}
 	</select>
 	
