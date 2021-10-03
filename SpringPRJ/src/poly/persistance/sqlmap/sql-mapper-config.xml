@@ -7,5 +7,6 @@
 		<typeAlias type="poly.dto.ProjectsDTO" alias="ProjectsDTO"/>
 		<typeAlias type="poly.dto.MailDTO" alias="MailDTO"/>
 		<typeAlias type="poly.dto.KakaoDTO" alias="KakaoDTO"/>
+		<typeAlias type="poly.dto.OcrDTO" alias="OcrDTO"/>
     </typeAliases>
 </configuration>
