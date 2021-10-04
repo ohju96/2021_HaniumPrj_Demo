@@ -89,7 +89,7 @@
 								<h3>회원가입</h3>
 								<span class="bar-dark"></span> <span class="bar-primary"></span>
 							</div>
-							<form action="/user/user/join.do">
+							<form action="/user/user/join.do" method="post">
 								<div id="contact-form" class="row contact-form no-gutter"
 									method="post">
 									<!-- <div class="col-xs-12 col-sm-6">

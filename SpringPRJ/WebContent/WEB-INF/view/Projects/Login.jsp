@@ -15,7 +15,7 @@ text-align :center;
 <body>
 
 <h1>LOGIN</h1>
-<form action="/Projects/index.do">
+<form action="/Projects/index.do" method="post">
 <div>
 ID : <input type="email" name ="id"></input>
 </div>

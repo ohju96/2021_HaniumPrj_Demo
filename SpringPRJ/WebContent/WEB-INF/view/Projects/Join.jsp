@@ -13,7 +13,7 @@ text-align :center;
 </head>
 <body>
 <h1> JOIN </h1>
-<form action="/Projects/insert.do">
+<form action="/Projects/insert.do" method="post">
 <div>
 ID :<input type="email" name="id"></input>
 </div>

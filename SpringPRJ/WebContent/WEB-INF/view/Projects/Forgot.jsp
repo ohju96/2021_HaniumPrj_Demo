@@ -15,7 +15,7 @@ text-align :center;
 <body>
 	<h1> 비밀번호 찾기 </h1>
 	등록하신 아이디를 입력해주세요 
-	<form action ="/Projects/Search.do">
+	<form action ="/Projects/Search.do" method="post">
 	<br>
 	<div>
 	ID : <input type="email" name=toMail></input>

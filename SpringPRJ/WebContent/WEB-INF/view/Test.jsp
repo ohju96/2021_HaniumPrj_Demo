@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="/result.do">
+<form action="/result.do" method="post">
 <input type ="text" name= "search" id="search"></input>
 <input type ="submit"></input>
 </form>

@@ -13,7 +13,7 @@ text-align :center;
 </style>
 </head>
 <body>
- <form action="/mail/sendMail.do">
+ <form action="/mail/sendMail.do" method="post">
 <div>
 <h3>해당하는 아이디와 임시 비밀번호를 받을 메일주소를 입력하세요</h3>
 ID : <input type="email" name ="id"></input>

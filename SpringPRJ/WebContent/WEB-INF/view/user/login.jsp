@@ -97,7 +97,7 @@
                                             <input type="text" class="form-control"  placeholder="Enter your name">
                                         </div>
                                     </div> -- ./col- -->
-							<form action="/Projects/index.do">
+							<form action="/Projects/index.do" method="post">
 								<div id="contact-form" class="row contact-form no-gutter"
 									method="post">
 									<div class="col-xs-12 col-sm-6 email_length">
