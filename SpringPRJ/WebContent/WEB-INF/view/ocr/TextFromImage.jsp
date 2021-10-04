@@ -3,7 +3,7 @@
 <%@ page import="poly.util.CmmUtil"%> 
 <% 
 	//Controller로부터 전달받은 데이터
-	String res = CmmUtil.nvl((String) request.getAttribute("res"));
+	String res = CmmUtil.nvl((String) request.getAttribute("t_res"));
 %>  
 <!DOCTYPE html>
 <html>

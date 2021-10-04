@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import poly.util.PapagoUtil;
 import poly.util.UrlUtil;
-// .. 
+
 
 @Controller
 public class TestController {
@@ -36,23 +36,25 @@ public class TestController {
 		return result;
 	}
 	
-	@RequestMapping(value = "result", produces = "application/json; charset=utf8")
+	@RequestMapping(value = "result")
 	public @ResponseBody String result(HttpServletRequest request, ModelMap model) throws Exception{
 		String search = request.getParameter("search");
 		log.info(search);
 		
 		UrlUtil uu = new UrlUtil();
 		
-		String url = "http://127.0.0.1:8000";
-	    String api = "/search";
-	    String Name = "?Text=";
-	    String Text = search;
-		
-		
-	    String res = uu.urlReadforString(url+api+Name+URLEncoder.encode(Text, "UTF-8"));
-	    PapagoUtil.converter("res");
+		/*
+		 * String url = "http://127.0.0.1:8000"; String api = "/search"; String Name =
+		 * "?Text="; String Text = search;
+		 */
+	    
+	    String res = "설탕";
+	    String t_res = "";
+	    		
+	    //String res = uu.urlReadforString(url+api+Name+URLEncoder.encode(Text, "UTF-8"));
+	    PapagoUtil.converter(res, "en");
 	    System.out.println("res : " + res );
-
+	    log.info(t_res);
 		uu = null; //메모리 줄이기 위해 사용
 		
 		return res;
