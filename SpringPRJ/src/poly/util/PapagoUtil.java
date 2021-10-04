@@ -13,17 +13,19 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-// 네이버 기계번역 (Papago SMT) API 예제
-public class PapagoUtil {
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-    public static void converter(String[] args) {
-        String clientId = "YOUR_CLIENT_ID";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "YOUR_CLIENT_SECRET";//애플리케이션 클라이언트 시크릿값";
+public class PapagoUtil {
+   public static String converter (String s, String lang) throws ParseException {
+        String clientId = "omq02kgJT2xYptp6YlDW";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "LQWm9ZgA2r";//애플리케이션 클라이언트 시크릿값";
 
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
         String text;
         try {
-            text = URLEncoder.encode("안녕하세요. 오늘 기분은 어떻습니까?", "UTF-8");
+            text = URLEncoder.encode(s, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("인코딩 실패", e);
         }
@@ -32,14 +34,20 @@ public class PapagoUtil {
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
 
-        String responseBody = post(apiURL, requestHeaders, text);
+        String responseBody = post(apiURL, requestHeaders, text, lang);
 
         System.out.println(responseBody);
+        JSONParser parser = new JSONParser(); 
+        JSONObject json = (JSONObject) parser.parse(responseBody);
+        JSONObject json1 = (JSONObject) parser.parse(json.get("message").toString());
+        JSONObject json2 = (JSONObject) parser.parse(json1.get("result").toString());
+        System.out.println(json2.get("translatedText"));
+        return json2.get("translatedText").toString();
     }
 
-    private static String post(String apiUrl, Map<String, String> requestHeaders, String text){
+    private static String post(String apiUrl, Map<String, String> requestHeaders, String text,String lang){
         HttpURLConnection con = connect(apiUrl);
-        String postParams = "source=ko&target=en&text=" + text; //원본언어: 한국어 (ko) -> 목적언어: 영어 (en)
+        String postParams = "source=ko&target="+ lang+"&text=" + text; //원본언어: 한국어 (ko) -> 목적언어: 영어 (en)
         try {
             con.setRequestMethod("POST");
             for(Map.Entry<String, String> header :requestHeaders.entrySet()) {

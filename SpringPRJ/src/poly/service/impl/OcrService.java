@@ -28,7 +28,7 @@ public class OcrService implements IOcrService {
 	@Override
 	public OcrDTO getReadforImageText(OcrDTO pDTO) throws Exception {
 		
-		log.info(this.getClass().getName() + ".getFoodInfoFromWeb Start! ");
+		log.info("OcrService: 이미지 인식 서비스 시작");
 		
 		File imageFile = new File(CmmUtil.nvl(pDTO.getFilePath()) + "//" + CmmUtil.nvl(pDTO.getFileName()));
 		
@@ -49,9 +49,9 @@ public class OcrService implements IOcrService {
 		//읽은 글자를 DTO에 저장하기
 		pDTO.setTextFromImage(result);
 		
-		log.info("result : " + result);
+		log.info("인식된 이미지 : " + result);
 		
-		log.info(this.getClass().getName() + ".getFoodInfoFromWEB Start!");
+		log.info("OcrService: 서비스 종료 컨트롤러로 반환");
 		
 	
 		

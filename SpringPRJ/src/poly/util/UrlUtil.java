@@ -15,7 +15,7 @@ public class UrlUtil {
    private Logger log = Logger.getLogger(this.getClass());
    
    private String readAll(Reader rd) {
-      log.info("readAll Strat");
+      log.info("UrlUtil: readAll 시작");
       StringBuilder sb =null;
       
       try {
@@ -30,14 +30,14 @@ public class UrlUtil {
          log.info("readAll Exception : " + e.toString());
       }
       
-      log.info("readAll End!");
+      log.info("UrlUtil: readAll 종료");
       return sb.toString();
    }
    
    public String urlReadforString(String url) throws IOException {
       
-      log.info("urlReadforString Start!");
-      log.info("urlReadforString url :" + url);
+      log.info("UrlUtil: urlReadforString 시작");
+      log.info("UrlUtil: urlReadforString url :" + url);
       
       BufferedReader rd =null;
       InputStream is =null;
@@ -59,7 +59,7 @@ public class UrlUtil {
          is = null;
          rd = null;
       }
-      log.info("urlReadforString End!");
+      log.info("UrlUtil: urlReadforString 종료");
       
       return res ;
    }

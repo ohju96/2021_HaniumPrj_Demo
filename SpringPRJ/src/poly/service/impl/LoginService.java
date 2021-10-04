@@ -26,7 +26,7 @@ public class LoginService implements ILoginService {
 		ProjectsDTO uDTO = new ProjectsDTO();
 		uDTO = LoginMapper.checkLogin(mDTO);
 		log.info(uDTO.getUser_id());
-		log.info("로그인시작");
+		log.info("로그인 : 서비스 로직 정상 작동");
 		
 		return uDTO;
 	}
