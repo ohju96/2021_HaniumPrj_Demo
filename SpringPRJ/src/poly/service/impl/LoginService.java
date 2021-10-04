@@ -20,7 +20,7 @@ public class LoginService implements ILoginService {
 	
 	
 	@Override
-	public int Loginpage(poly.dto.ProjectsDTO mDTO) throws Exception {
+	public int Loginpage(ProjectsDTO mDTO) throws Exception {
 		
 		// 로그인 성공 : 1 , 실패 : 0
 		int res = 0;

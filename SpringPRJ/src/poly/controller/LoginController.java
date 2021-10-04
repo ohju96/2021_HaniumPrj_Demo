@@ -45,24 +45,24 @@ public class LoginController {
 		ProjectsDTO mDTO = null;
 		
 		try {
-			String user_id = CmmUtil.nvl(request.getParameter("id"));
-			log.info("user_id : " + user_id);
-			String user_pwd = CmmUtil.nvl(request.getParameter("pwd"));
-			log.info("user_pwd : " + user_pwd);
+			String id = CmmUtil.nvl(request.getParameter("id"));
+			log.info("user_id : " + id);
+			String password = CmmUtil.nvl(request.getParameter("pwd"));
+			log.info("user_pwd : " + password);
 			
 			
 			
 			mDTO = new ProjectsDTO();
 			
-			mDTO.setUser_id(user_id);
-			log.info("user_id2 : " + user_id);
-			mDTO.setUser_pwd(EncryptUtil.encHashSHA256(user_pwd));
-			log.info("user_pwd2 : " + user_pwd);
+			mDTO.setUser_id(id);
+			log.info("user_id2 : " + id);
+			mDTO.setUser_pwd(EncryptUtil.encHashSHA256(password));
+			log.info("user_pwd2 : " + password);
 			
 			res = LoginService.Loginpage(mDTO);
 			
 			if (res==1) {
-				session.setAttribute("SS_user_id", user_id);
+				session.setAttribute("id", id);
 				session.setAttribute("name", mDTO.getUser_name());
 			}
 		} catch (Exception e) {
