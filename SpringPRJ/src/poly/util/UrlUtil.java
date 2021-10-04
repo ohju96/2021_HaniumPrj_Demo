@@ -46,10 +46,10 @@ public class UrlUtil {
       String res ="";
       
       try {
-         is = new URL(url).openStream();
-         
+        
+    	 is = new URL(url).openStream();
+         log.info("is : "+is);
          rd= new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-               
          res = readAll(rd);
          
       }catch(Exception e) {

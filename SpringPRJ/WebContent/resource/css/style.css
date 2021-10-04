@@ -101,6 +101,8 @@ span{color:#ddd;}
 	font-size:2.2pc;
 	
 }
+
+
 .h2_seat_color{
 	color:#000;
 	 font-weight: 600;
@@ -151,6 +153,8 @@ span{color:#ddd;}
 	color: #FA6862;
 }
 
+
+
 @media ( min-width : 1200px) {
 	img {
 		max-width: 100%;
@@ -174,6 +178,11 @@ span{color:#ddd;}
 	.clear_div {
 		margin-left: 13%;
 		width: 800px;
+	}
+	
+	/*마이페이지 회원가입 중간크기*/
+	.mid{
+		width: 84%;
 	}
 }
 

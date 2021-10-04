@@ -1,32 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+<<<<<<< Updated upstream
                     
+=======
+                        
+    
+>>>>>>> Stashed changes
     
     
     
     <wb-module deploy-name="SpringForOracle-0.0.1-SNAPSHOT">
         <wb-resource deploy-path="/WEB-INF/web.xml" source-path="/WebContent/WEB-INF/web.xml"/>
+<<<<<<< Updated upstream
                                         
+=======
+                                                
+        
+>>>>>>> Stashed changes
         
         
         
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+<<<<<<< Updated upstream
                                         
+=======
+                                                
+        
+>>>>>>> Stashed changes
         
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+<<<<<<< Updated upstream
                                         
+=======
+                                                
+        
+>>>>>>> Stashed changes
         
         
         
         <property name="java-output-path" value="/SpringPRJ/WebContent/WEB-INF/classes"/>
+<<<<<<< Updated upstream
         <property name="context-root" value="SpringForOracle"/>
                                     
+=======
+        <property name="context-root" value="/"/>
+                                            
+    
+>>>>>>> Stashed changes
     
     
     
     </wb-module>
+<<<<<<< Updated upstream
                 
+=======
+                    
+
+>>>>>>> Stashed changes
 
 
 

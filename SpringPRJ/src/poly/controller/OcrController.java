@@ -57,6 +57,7 @@ public class OcrController {
 		//OCR 실행결과
 		String res = "";
 		String t_res = "";
+		
 		// 업로드하는 실제 파일명
 		// 다운로드 기능 구현시, 임의로 정의된 파일명을 원래대로 만들어주기 위한 목적
 		String originalFileName = mf.getOriginalFilename();
@@ -86,22 +87,25 @@ public class OcrController {
 			// 업로드 되는 파일을 서버에 저장
 			mf.transferTo(new File(fullFileInfo));
 			
-			UrlUtil uu = new UrlUtil();
-			
-			String url = "http://127.0.0.1:5000";
-	        String api = "/text?";
-	        String iname = "ipath=";
-	        String ipath = fullFileInfo;
-	        
-	        log.info("url :" +url +"api : "+ api +"api : "+ iname +"ipath : "+ ipath);
-	        res = uu.urlReadforString(url + api + iname + ipath);
-	        t_res = PapagoUtil.converter(res, "en");
-	        log.info("번역 결과 :" + t_res);
-
 			OcrDTO pDTO = new OcrDTO();
 			
 			pDTO.setFileName(saveFileName); //저장되는 파일명
 			pDTO.setFilePath(saveFilePath); //저장되는 경로
+			
+			UrlUtil uu = new UrlUtil();
+			
+			String url = "http://127.0.0.1:5000";
+			String api = "/text?";
+			String iname = "ipath=";
+			String ipath = fullFileInfo;
+			
+			log.info("url :" +url +" api : "+ api +" iname : "+ iname +" ipath : "+ ipath);
+			
+			res = uu.urlReadforString(url + api + iname + ipath);
+			t_res = PapagoUtil.converter(res, "en");
+			System.out.println("res : " + t_res );
+			log.info("번역 결과 :" + t_res);
+			
 			
 			OcrDTO rDTO = ocrService.getReadforImageText(pDTO);
 			
@@ -114,10 +118,13 @@ public class OcrController {
 			rDTO = null;
 			pDTO = null;
 			
-		}else {
+			}else {
 			res = "이미지 파일이 아니라서 인식이 불가능합니다.";
 			
-		}
+			}
+			
+
+			
 		
 		// 크롤링 결과를 넣어주기
 		model.addAttribute("t_res", t_res);
