@@ -1,7 +1,9 @@
 package poly.controller;
 
 import javax.annotation.Resource;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import poly.dto.ProjectsDTO;
 import poly.service.ILoginService;
 import poly.util.CmmUtil;
+import poly.util.EncryptUtil;
 
 @Controller
 public class LoginController {
@@ -26,46 +29,56 @@ public class LoginController {
 	@RequestMapping(value = "user/login")
 	public String login() {
 		log.info("로그인 접속");
+		
 		return "/user/login";
 	}
 	
 	//================================== 로그인 처리 로직
 	@RequestMapping(value = "Projects/index")
-	public String index(HttpServletRequest request, HttpSession session, ModelMap model) throws Exception {
-
-		String id = request.getParameter("id");
-		String password = request.getParameter("pwd");
-		log.info(id);
-		log.info(password);
-		log.info("로그인 시작");
-
-		ProjectsDTO mDTO = new ProjectsDTO();
-		mDTO.setUser_id(id);
-		mDTO.setUser_pwd(password);
-		log.info(mDTO.getUser_id());
-		log.info(mDTO.getUser_pwd());
-
-		mDTO = LoginService.Loginpage(mDTO);
-		log.info(mDTO.getUser_id());
+	public String index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			ModelMap model) throws Exception {
 		
-		log.info("여기까지 오나 ??122");
+		log.info("로그인 시작");
+		
 		int res = 0;
 		
-		if(CmmUtil.nvl(mDTO.getUser_id()).equals(id)) {
-			log.info("이름"+ mDTO.getUser_name());
-			session.setAttribute("id", id);
-			session.setAttribute("name", mDTO.getUser_name());
-			mDTO=null;
-			log.info("로그인 성공");
-			res = 1;
-		}
+		ProjectsDTO mDTO = null;
 		
-		else if (!CmmUtil.nvl(mDTO.getUser_id()).equals(id)){
-			log.info("로그인 실패");
-			res = 0;
+		try {
+			String user_id = CmmUtil.nvl(request.getParameter("id"));
+			log.info("user_id : " + user_id);
+			String user_pwd = CmmUtil.nvl(request.getParameter("pwd"));
+			log.info("user_pwd : " + user_pwd);
+			
+			
+			
+			mDTO = new ProjectsDTO();
+			
+			mDTO.setUser_id(user_id);
+			log.info("user_id2 : " + user_id);
+			mDTO.setUser_pwd(EncryptUtil.encHashSHA256(user_pwd));
+			log.info("user_pwd2 : " + user_pwd);
+			
+			res = LoginService.Loginpage(mDTO);
+			
+			if (res==1) {
+				session.setAttribute("SS_user_id", user_id);
+				session.setAttribute("name", mDTO.getUser_name());
+			}
+		} catch (Exception e) {
+			res = 2;
+			
+			log.info(e.toString());
+			e.printStackTrace();
+		} finally {
+			log.info("로그인 끝");
+
+
+			model.addAttribute("res", String.valueOf(res));
+			
+			mDTO = null;
 		}
-		
-		model.addAttribute("res", String.valueOf(res));
+
 		return "/alert/loginAlert";
 	}
 }

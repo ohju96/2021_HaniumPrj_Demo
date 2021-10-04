@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import poly.dto.ProjectsDTO;
 import poly.persistance.mapper.ILoginMapper;
 import poly.service.ILoginService;
+import poly.util.CmmUtil;
 
 @Service("LoginService")
 public class LoginService implements ILoginService {
@@ -19,15 +20,29 @@ public class LoginService implements ILoginService {
 	
 	
 	@Override
-	public ProjectsDTO Loginpage(ProjectsDTO mDTO) throws Exception {
+	public int Loginpage(poly.dto.ProjectsDTO mDTO) throws Exception {
 		
-		log.info("아이디 :" + mDTO.getUser_id());
-		log.info("비밀번호 :" + mDTO.getUser_pwd());
-		ProjectsDTO uDTO = new ProjectsDTO();
-		uDTO = LoginMapper.checkLogin(mDTO);
-		log.info(uDTO.getUser_id());
-		log.info("로그인 : 서비스 로직 정상 작동");
+		// 로그인 성공 : 1 , 실패 : 0
+		int res = 0;
 		
-		return uDTO;
+		
+	
+		ProjectsDTO uDTO = LoginMapper.checkLogin(mDTO);
+	
+		log.info("서비스 로그 : " +  mDTO.getUser_name());
+		
+		if (uDTO==null) {
+			uDTO = new ProjectsDTO();
+		}
+	
+		if(CmmUtil.nvl(uDTO.getUser_id()).length()>0) {
+			
+			res = 1;
+		}
+		
+		
+		return res;
 	}
+
+
 }
