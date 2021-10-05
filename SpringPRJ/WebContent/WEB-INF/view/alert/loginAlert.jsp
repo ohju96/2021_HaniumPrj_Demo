@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <% 
-String user_name = (String)session.getAttribute("name"); 
+String user_name = (String)session.getAttribute("id"); 
 String jspRes = CmmUtil.nvl((String)request.getAttribute("res"), "0");
 %>
 <head>
