@@ -22,19 +22,17 @@ public class JoinService implements IJoinService {
 		
 		//회원가입 성공: 1, 아이디 중복으로 인한 가입취소: 2, 기타에러 발생:0
 		int res = 0;
-		log.info("서비스 :" + uDTO.getUser_id());
 		
 		//controller에서 값이 정상적응로 못 넘어오는 경우를 대비하기위해 사용함
 	      if (uDTO == null) {
 	         uDTO = new ProjectsDTO();
 	      }
+	      
+	      log.info("서비스 :" + uDTO.getUser_id());
+	      
 	    //회원 가입 중복방지를 위해 DB에서 데이터를 조회
 	    ProjectsDTO rDTO = JoinMapper.getUserExists(uDTO);
 		
-	    //mapper에서 값이 정상적으로 못넘어오는 경우를 대비하기위해 사용함
-	      if(rDTO == null) {
-	         rDTO = new ProjectsDTO();
-	      }
 	      //mapper 에서 값이 정상적으로 못 넘어오는 경우를 대비하기 위해사용함
 	      if(rDTO == null) {
 	         rDTO = new ProjectsDTO();

@@ -27,6 +27,41 @@
 <link rel="stylesheet" href="/resource/css/style.css">
 <link id="color-changer" rel="stylesheet"
 	href="/resource/css/colors/color-0.css">
+	
+<script type="text/javascript"> 
+//onsubmit을 통해 submit이 되기 전 잠시 멈춘 후 수행되는 이벤트를 지정할 수 있다.
+//onsubmit은 true 혹은 false를 통해 전송 여부가 결정되만 이를 함수의 반환값으로 줌으로써
+//호출된 함수안의 로직들은 전송 직전에 반드시 실행
+되고, 전송 여부에도 영향을 미칠 수 있다.
+//onsubmit으로 실행될 함수. 
+function mergeAllergy(f){
+	//매개변수로 받은 f(여기선 form태그) 속 input 태그 중 name이 allergy1인 태그 중 checked옵션이 적용된
+	var n = f.$("input[name=allergy1]:checked").length;
+	
+	var allAllergy="";
+
+	for(var i=0; i<n; i++){
+		
+		var istr = f.$("input[name=allergy1]:checked")[i].value;
+		
+		if(istr !== null && istr !== undefined){
+			allAllergy+=istr;
+			if(i!=n-1) {
+			allAllergy+=",";
+			}
+			}
+	
+	}
+	
+	if(allAllergy==""){
+		alert("음식 종류를 하나 이상 선택해주세요 !");
+		return false;
+	}
+	
+	$('#allAllergy').val(allAllergy);
+	return true;
+}
+</script>
 </head>
 
 <body>
@@ -89,7 +124,7 @@
 								<h3>회원가입</h3>
 								<span class="bar-dark"></span> <span class="bar-primary"></span>
 							</div>
-							<form action="/user/user/join.do">
+							<form action="/user/user/join.do" method="post" onsubmit="return mergeAllergy(this);">
 								<div id="contact-form" class="row contact-form no-gutter"
 									method="post">
 									<!-- <div class="col-xs-12 col-sm-6">
@@ -130,15 +165,15 @@
 										<div class="input-field message">
 											<div class="check_styl">
 												<p>나의 알레르기 (복수선택)</p>
-												<input type="checkbox" name="allergy" value="갑각류"> 갑각류
-	                                            <input type="checkbox" name="allergy" value="달걀"> 달걀
-	                                            <input type="checkbox" name="allergy" value="땅콩"> 땅콩
-	                                            <input type="checkbox" name="allergy" value="밀"> 밀
-	                                            <input type="checkbox" name="allergy" value="생선"> 생선
-	                                            <input type="checkbox" name="allergy" value="우유"> 우유
-	                                            <input type="checkbox" name="allergy" value="조개"> 조개
-	                                            <input type="checkbox" name="allergy" value="콩"> 콩
-												
+												<input type="checkbox" name="allergy1" value="갑각류"> 갑각류
+	                                            <input type="checkbox" name="allergy1" value="달걀"> 달걀
+	                                            <input type="checkbox" name="allergy1" value="땅콩"> 땅콩
+	                                            <input type="checkbox" name="allergy1" value="밀"> 밀
+	                                            <input type="checkbox" name="allergy1" value="생선"> 생선
+	                                            <input type="checkbox" name="allergy1" value="우유"> 우유
+	                                            <input type="checkbox" name="allergy1" value="조개"> 조개
+	                                            <input type="checkbox" name="allergy1" value="콩"> 콩
+												<input type="hidden" name="allergy" id="allAllergy" value=""/>
 											</div>
 										</div>
 									</div>

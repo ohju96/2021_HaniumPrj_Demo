@@ -16,7 +16,7 @@ import poly.service.ILoginService;
 import poly.util.CmmUtil;
 import poly.util.EncryptUtil;
 
-@Controller
+@Controller("LoginController")
 public class LoginController {
    
    @Resource(name = "LoginService")
@@ -38,7 +38,7 @@ public class LoginController {
    public String index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
          ModelMap model) throws Exception {
       
-      log.info("로그인 시작");
+      log.info(this.getClass().getName()+" : 로그인 시작");
       
       int res = 0;
       
@@ -60,21 +60,23 @@ public class LoginController {
          log.info("user_pwd2 : " + password);
          
          res = LoginService.Loginpage(mDTO);
+         log.info("서비스에서 로그인 성공, 실패 여부가 성공적으로 넘어옴");
          
          if (res==1) {
             session.setAttribute("id", id);
-            session.setAttribute("name", mDTO.getUser_name());
+            log.info("로그인 성공했으므로 id를 세션에 담음");
          }
       } catch (Exception e) {
          res = 2;
          
          log.info(e.toString());
          e.printStackTrace();
+         
       } finally {
-         log.info("로그인 끝");
 
 
          model.addAttribute("res", String.valueOf(res));
+         log.info(this.getClass().getName()+"로그인 끝");
          
          mDTO = null;
       }

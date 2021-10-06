@@ -1,10 +1,5 @@
 package poly.controller;
-//깃테스트 이진아
 
-
-//git test_김학겸
-
-// 깃 테스트 주현
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +15,7 @@ import poly.service.IJoinService;
 import poly.util.CmmUtil;
 import poly.util.EncryptUtil;
 
-@Controller
+@Controller("JointController") //tmi 찬우가 씀
 public class JoinController {
 
 	@Resource(name = "JoinService")

@@ -3,7 +3,10 @@
 <%@ page import="poly.dto.ProjectsDTO"%>		
 <!DOCTYPE html>
 <%
-	ProjectsDTO pDTO = (ProjectsDTO)request.getAttribute("rDTO");
+	ProjectsDTO rDTO = (ProjectsDTO)session.getAttribute("rDTO");
+	String[] allergy = rDTO.getUser_allergy().split(",");
+	//변경사항 : 컨트롤러에서 DTO전체를 세션에 넣었고 알러지 배열 쪼개는 것도 jsp로 옮겨왔습니다
+	//배열까지 세션으로 끌어와 형변환시켜 저장하는 게 껄끄러워서 그렇게 했습니다.
 %>
 <html class="no-js" lang="">
 <head>
@@ -93,9 +96,8 @@
 								<h3>마이페이지</h3>
 								<span class="bar-dark"></span> <span class="bar-primary"></span>
 							</div>
-							<form action="/user/user/join.do">
-								<div id="contact-form" class="row contact-form no-gutter"
-									method="post">
+							<form action="/user/user/join.do" method = "post">
+								<div id="contact-form" class="row contact-form no-gutter">
 									<!-- <div class="col-xs-12 col-sm-6">
                                         <div class="input-field name">
                                             <span class="input-icon" id="name" ><i class="tf-profile-male"></i></span>

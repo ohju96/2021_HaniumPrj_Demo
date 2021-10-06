@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <% 
-String user_name = (String)session.getAttribute("name"); 
+String user_id = (String)session.getAttribute("id"); 
 String jspRes = CmmUtil.nvl((String)request.getAttribute("res"), "0");
 %>
 <head>
@@ -17,7 +17,7 @@ String jspRes = CmmUtil.nvl((String)request.getAttribute("res"), "0");
 if (jspRes.equals("1")){
 %>		
 	<script>
-	alert('<%=user_name%> 님 로그인에 성공하였습니다.')
+	alert('<%=user_id%> 님 로그인에 성공하였습니다.')
 	document.location.href="/index.do"
 	</script>
 
