@@ -3,7 +3,6 @@
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
 <mapper namespace="poly.persistance.mapper.IPWCMapper">
 
-	
 	<select id="Search" parameterType="ProjectsDTO" resultType="ProjectsDTO">
 	SELECT * FROM USER_INFO
 	WHERE USER_ID = #{user_id}
