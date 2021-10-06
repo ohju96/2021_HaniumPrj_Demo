@@ -4,11 +4,8 @@
 <!DOCTYPE html>
 <html>
 <% 
-<<<<<<< HEAD
 String user_id = (String)session.getAttribute("id"); 
-=======
 String user_name = (String)session.getAttribute("id"); 
->>>>>>> c723ee32dbfcbd846270e6711ec19ac5b7e24017
 String jspRes = CmmUtil.nvl((String)request.getAttribute("res"), "0");
 %>
 <head>
