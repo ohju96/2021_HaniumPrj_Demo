@@ -4,8 +4,11 @@ import poly.dto.ProjectsDTO;
 
 public interface IPWCService {
 
-	int New(ProjectsDTO wDTO)throws Exception;
+	int New(ProjectsDTO uDTO)throws Exception;
 
 	int Search(ProjectsDTO oDTO) throws Exception;
+	
+	int PWchange(ProjectsDTO uDTO) throws Exception;
+	
 
 }

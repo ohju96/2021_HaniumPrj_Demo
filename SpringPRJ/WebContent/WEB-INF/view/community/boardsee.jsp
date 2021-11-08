@@ -10,10 +10,15 @@
 
 <html lang="en">
 <head>
+<style>	
+	h2{
+		font-weight: bolder
+	}
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>부트스트랩 테이블</title>
+<title>Post Details</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -38,11 +43,13 @@
 		<h2 class="h2_seat">
 			<code class="h2_seat_color">커뮤니티 게시판</code>
 		</h2>
+		
+
 		<table class="table table-striped table_reading">
 			<thead class="thead_color ">
 				<tr>
-					<th class="thead_th">제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%=pDTO.getBoard_title()%></th>
-					<th class="thead_th">작성자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%=pDTO.getBoard_writer()%></th>
+					<th class="thead_th">제목 :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%=pDTO.getBoard_title()%></th>
+					<th class="thead_th">작성자 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%=pDTO.getBoard_writer()%></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -58,8 +65,8 @@
 		<button type="button" class="btn button_FA6862 button_FA6862_seat" onclick="location.href='/community/boarddelete.do?number=<%=pDTO.getBoard_seq()%>'" style="margin-right:10px;">삭제</button>
 		<%} %>
 		<button type="button"
-				onclick="location.href='/index.do' "
-				class="btn button_FA6862 button_FA6862_seat" style="width:120px; margin-right: 10px;">이전 페이지</button>
+				onclick="location.href='/index.do'"
+				class="btn button_FA6862 button_FA6862_seat" style="width:120px; margin-right: 10px;">이전페이지</button>
 		</div>
 </body>
 </html>

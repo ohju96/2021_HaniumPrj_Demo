@@ -1,9 +1,12 @@
 package poly.service;
 
+import java.util.List;
+
 import poly.dto.OcrDTO;
+import poly.dto.SearchAllerDTO;
 
 public interface IOcrService {
 
-	//이미지 파일로부터 문자 읽어 오기
-	OcrDTO getReadforImageText(OcrDTO pDTO) throws Exception;
+	//플라스크 결과값을 통해 음식 리스트 가져오기;
+	List<SearchAllerDTO> getFoodList(SearchAllerDTO saDTO) throws Exception;
 }

@@ -8,5 +8,5 @@ public interface IMailService {
 	int doSendmail(MailDTO pDTO);
 
 
-
+	int contactwrite(MailDTO pDTO);
 }

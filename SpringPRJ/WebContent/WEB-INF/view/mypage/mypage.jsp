@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="poly.dto.ProjectsDTO"%>		
+   pageEncoding="UTF-8"%>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="poly.dto.ProjectsDTO"%>      
 <!DOCTYPE html>
 <%
-	ProjectsDTO rDTO = (ProjectsDTO)session.getAttribute("rDTO");
-	String[] allergy = rDTO.getUser_allergy().split(",");
-	//변경사항 : 컨트롤러에서 DTO전체를 세션에 넣었고 알러지 배열 쪼개는 것도 jsp로 옮겨왔습니다
-	//배열까지 세션으로 끌어와 형변환시켜 저장하는 게 껄끄러워서 그렇게 했습니다.
+   ProjectsDTO pDTO = (ProjectsDTO)session.getAttribute("rDTO");
+	HashMap<String,String> hm = (HashMap)request.getAttribute("hm");
 %>
 <html class="no-js" lang="">
 <head>
+
 <!-- meta charset -->
 <meta charset="utf-8">
 <!-- site title -->
@@ -32,8 +32,13 @@
 <link rel="stylesheet" href="/resource/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resource/css/main.css">
 <link rel="stylesheet" href="/resource/css/style.css">
-<link id="color-changer" rel="stylesheet"
-	href="/resource/css/colors/color-0.css">
+<link id="color-changer" rel="stylesheet" href="/resource/css/colors/color-0.css">
+
+  <script type="text/javascript">
+  
+
+  </script>
+
 </head>
 
 <body>
@@ -46,22 +51,6 @@
 		<div class="loading-mask"></div>
 	</div>
 
-	<div class="preview-wrapper">
-		<div class="switcher-head">
-			<span>Style Switcher</span>
-			<div class="switcher-trigger tf-tools"></div>
-		</div>
-
-		<div class="switcher-body">
-			<h4>Choose Color:</h4>
-			<ul class="color-options list-none">
-				<li class="c0" data-color="red" title="Default">Default</li>
-				<li class="c1" data-color="blue" title="Red">Red</li>
-				<li class="c2" data-color="green" title="Green">Green</li>
-				<li class="c3" data-color="yellow" title="Blue">Blue</li>
-			</ul>
-		</div>
-	</div>
 
 	<main class="site-wrapper">
 		<div class="pt-table">
@@ -80,24 +69,28 @@
 									<!--<h2>All <span class="primary">for you</span><span class="title-bg">Welcome</span>-->
 								</h2>
 								<p>
-									올포유 서비스 이용을 위한 회원가입을 해주세요.<br> 당신을 위한, 안전한 먹거리를 위해 ALL FOR
-									YOU
+									당신을 위한, 안전한 먹거리를 위해 ALL FOR
+                           YOU
+									
 								</p>
 							</div>
 						</div>
+						
 					</div>
 					<!-- /.row -->
 
 					<div class="row">
 
 						<div
-							class="col-xs-12 col-sm-7 col-md-7 col-md-offset-1 col-lg-offset-2 login_box">
+							class="col-xs-12 col-sm-7 col-md-7 col-md-offset-1 col-lg-offset-2 login_box mid">
 							<div class="section-title clear">
+
 								<h3>마이페이지</h3>
 								<span class="bar-dark"></span> <span class="bar-primary"></span>
 							</div>
-							<form action="/user/user/join.do" method = "post">
-								<div id="contact-form" class="row contact-form no-gutter">
+							<form action="/user/userUpdate.do" method="post">
+								<div id="contact-form" class="row contact-form no-gutter"
+									method="post">
 									<!-- <div class="col-xs-12 col-sm-6">
                                         <div class="input-field name">
                                             <span class="input-icon" id="name" ><i class="tf-profile-male"></i></span>
@@ -109,155 +102,54 @@
 											<span class="input-icon" id="email"><i
 												class="tf-envelope2"></i></span> <input type="email"
 												class="form-control" name="id"
-												placeholder="사용하실 이메일을 입력해주세요">
+												placeholder="ID : <%=pDTO.getUser_id()%>" disabled/>
 										</div>
 									</div>
-									<!-- ./col- -->
-									<div class="col-xs-12 col-sm-12">
-										<div class="input-field">
-											<span class="input-icon" id="subject"><i
-												class="tf-ion-android-unlock"></i></span> <input type="password"
-												class="form-control" name="pwd"
-												placeholder="사용하실 비밀번호를 입력해주세요">
-										</div>
-									</div>
-
-
 									<!-- ./col- -->
 									<div class="col-xs-12 col-sm-12">
 										<div class="input-field">
 											<span class="input-icon" id="subject"><i
 												class="tf-ion-person"></i></span> <input type="text"
-												class="form-control" name="name" placeholder="본인 이름을 입력해주세요">
+												class="form-control" name="name" placeholder="이름 : <%=pDTO.getUser_name()%>" disabled/>
 										</div>
 									</div>
 									<!-- ./col- -->
 									<div class="col-xs-12 col-sm-12">
 										<div class="input-field message">
 											<div class="check_styl">
-												<p>나의 알레르기 (복수선택)</p>
-												<input type="checkbox" name="allergy" value="갑각류"> 갑각류
-	                                            <input type="checkbox" name="allergy" value="달걀"> 달걀
-	                                            <input type="checkbox" name="allergy" value="땅콩"> 땅콩
-	                                            <input type="checkbox" name="allergy" value="밀"> 밀
-	                                            <input type="checkbox" name="allergy" value="생선"> 생선
-	                                            <input type="checkbox" name="allergy" value="우유"> 우유
-	                                            <input type="checkbox" name="allergy" value="조개"> 조개
-	                                            <input type="checkbox" name="allergy" value="콩"> 콩
-												
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-12 col-sm-12">
-										<div class="input-field message">
-											<div class="check_styl check_styl2">
-												<p>
-													<span>성별</span> <input type="radio" name="gender"
-														value="man" checked> 남자 <input type="radio"
-														name="gender" value="woman" class="input_style">
-													여자
-												</p>
-
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-12 col-sm-12">
-										<div class="input-field message">
-											<div class="check_styl check_styl2">
-												<p>
-													<span>생년월일</span> <select name="year"
-														class="check_styl2_child">
-														<option value="년">년</option>
-														<option value="1985">1985</option>
-														<option value="1986">1986</option>
-														<option value="1987">1987</option>
-														<option value="1988">1988</option>
-														<option value="1989">1989</option>
-														<option value="1990">1990</option>
-														<option value="1991">1991</option>
-														<option value="1992">1992</option>
-														<option value="1993">1993</option>
-														<option value="1994">1994</option>
-														<option value="1995">1995</option>
-														<option value="1996">1996</option>
-														<option value="1997">1997</option>
-														<option value="1998">1998</option>
-														<option value="1999">1999</option>
-														<option value="2000">2000</option>
-														<option value="2001">2001</option>
-														<option value="2002">2002</option>
-														<option value="2003">2003</option>
-													</select> <select name="month">
-														<option value="월">월</option>
-														<option value="01">1</option>
-														<option value="02">2</option>
-														<option value="03">3</option>
-														<option value="04">4</option>
-														<option value="05">5</option>
-														<option value="06">6</option>
-														<option value="07">7</option>
-														<option value="08">8</option>
-														<option value="09">9</option>
-														<option value="10">10</option>
-														<option value="11">11</option>
-														<option value="12">12</option>
-
-													</select> <select name="date">
-														<option value="일">일</option>
-														<option value="01">1</option>
-														<option value="02">2</option>
-														<option value="03">3</option>
-														<option value="04">4</option>
-														<option value="05">5</option>
-														<option value="06">6</option>
-														<option value="07">7</option>
-														<option value="08">8</option>
-														<option value="09">9</option>
-														<option value="10">10</option>
-														<option value="11">11</option>
-														<option value="12">12</option>
-														<option value="13">13</option>
-														<option value="14">14</option>
-														<option value="15">15</option>
-														<option value="16">16</option>
-														<option value="17">17</option>
-														<option value="18">18</option>
-														<option value="19">19</option>
-														<option value="20">20</option>
-														<option value="21">21</option>
-														<option value="22">22</option>
-														<option value="23">23</option>
-														<option value="24">24</option>
-														<option value="25">25</option>
-														<option value="26">26</option>
-														<option value="27">27</option>
-														<option value="28">28</option>
-														<option value="29">29</option>
-														<option value="30">30</option>
-														<option value="31">31</option>
-
-													</select>
-												</p>
-											</div>
+			                                    <p>나의 알레르기 (복수 선택)</p>
+			                                    <input type="checkbox" id="갑각류" name="allergy1" value="Crustacean" <%=hm.get("Crustacean")%>> 갑각류
+			                                    <input type="checkbox" id="달걀" name="allergy2" value="Egg" <%=hm.get("Egg")%>> 달걀
+			                                    <input type="checkbox" id="땅콩" name="allergy3" value="Peanut"<%=hm.get("Peanut")%>> 땅콩
+			                                    <input type="checkbox" id="밀" name="allergy4" value="Wheat" <%=hm.get("Wheat")%>> 밀
+			                                    <input type="checkbox" id="생선" name="allergy5" value="Fish" <%=hm.get("Fish")%>> 생선
+			                                    <input type="checkbox" id="우유" name="allergy6" value="Milk" <%=hm.get("Milk")%>> 우유
+			                                    <input type="checkbox" id="조개" name="allergy7" value="Clam" <%=hm.get("Clam")%>> 조개
+			                                    <input type="checkbox" id="콩" name="allergy8" value="Bean" <%=hm.get("Bean")%>> 콩
+			                                 </div>
 										</div>
 									</div>
 
-									<!--<div class="col-xs-12 col-sm-12">
-                                        <div class="input-field message">
-                                            <span class= "input-icon" ><i class="tf-pricetags"></i></span>
-                                            <textarea name="message" id="message" class="form-control" placeholder="Write your message"></textarea>
-                                        </div>
-                                    </div>  ./col- -->
 
-									<div class="col-xs-12 col-sm-12 ">
+                                    </div>
+
+									<div class="col-xs-12 col-sm-12" style="padding-left: 0px; padding-right: 0px;">
 										<div class="input-field div_margin2">
 											<span class="btn-border email_length">
-												<button type="submit"
-													class="btn btn-primary btn-custom-border text-uppercase email_length">수정하기</button>
-													
-											</span>
+			                                    <button type="button" class="btn btn-sm btn-primary button_color button_color email_length" id="btnSave" onclick="location.href='/mypage/logout.do'">로그아웃</button>
+			                                 </span>
+			                                 <span class="btn-border email_length">
+			                                    <button type="submit"
+			                                       class="btn btn-primary btn-custom-border text-uppercase email_length">수정하기</button>
+			                                 </span>
+			                                 <span class="btn-border email_length">
+			                                    <button type="button"
+			                                       id="btnSave" onclick="location.href='/user/PWchange.do'"
+			                                       class="btn btn-primary btn-custom-border text-uppercase email_length">비밀번호 변경</button>
+			                                 </span>
+											
 										</div>
-										<button type="button" class="btn btn-sm btn-primary button_color" id="btnSave" onclick="location.href='/mypage/logout.do'">로그아웃</button>
+										
 										<!--<div class="msg-success">Your Message was sent successfully</div> 
 										<div class="msg-failed">뭔가 잘못되었어요, 다시 시도해 보세요</div>-->
 									</div>
@@ -272,7 +164,7 @@
 				</div>
 				<!-- /.container -->
 
-				<nav class="page-nav clear">
+				<nav class="page-nav clear" style="bottom: -240px;">
 					<div class="container">
 						<div class="flex flex-middle space-between">
 							<span class="prev-page"><a href="/user/login.do"

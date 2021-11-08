@@ -51,6 +51,19 @@
 		WHERE BOARD_SEQ = #{board_seq}
 	
 	</delete>
+	<select id="countBoard" resultType="int">
+	SELECT COUNT(*) FROM COMMUNITY_INFO
+	</select>
+	
+	
+	<select id="selectBoard" resultType="ProjectsDTO">
+	SELECT *
+	FROM(SELECT @ROWNUM := @ROWNUM +1 AS ROWNUM, c.*
+	  FROM allforyou.COMMUNITY_INFO c, (SELECT @ROWNUM := 0) TMP
+	ORDER BY BOARD_REGDATE DESC) SUB
+   	 WHERE SUB.ROWNUM BETWEEN #{start} AND #{end}
+
+	</select>
 	
 	
 </mapper>

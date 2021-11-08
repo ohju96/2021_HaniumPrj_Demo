@@ -12,7 +12,7 @@ import poly.service.ILoginService;
 
 
 
-@Controller 
+@Controller("KakaoController") 
 public class KakaoController {
 
 	private Logger log = Logger.getLogger(getClass()); 

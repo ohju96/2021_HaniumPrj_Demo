@@ -14,7 +14,7 @@ import poly.service.ILoginService;
 // 21. 08. 16 : 내일로 미뤄짐 코드 확인 후 종료 
 // 백업용
 
-@Controller
+@Controller("LogoutController")
 public class LogoutController {
 	
 	@Resource(name = "LoginService")

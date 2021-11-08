@@ -14,7 +14,8 @@
 			USER_GENDER,
 			USER_ALLERGY,
 			REG_ID,
-			CHG_ID
+			CHG_ID,
+			USER_LANG
 		) values(
 			#{user_id},
 			#{user_pwd},
@@ -23,7 +24,8 @@
 			#{user_gender},
 			#{user_allergy},
 			#{user_id},
-	   	    #{user_id}
+	   	    #{user_id},
+	   	    #{user_lang}
 		)
 	</insert>
 	

@@ -1,5 +1,10 @@
 package poly.controller;
+//깃테스트 이진아
 
+
+//git test_김학겸
+
+// 깃 테스트 주현
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +20,7 @@ import poly.service.IJoinService;
 import poly.util.CmmUtil;
 import poly.util.EncryptUtil;
 
-@Controller("JointController") //tmi 찬우가 씀
+@Controller("JoinController")
 public class JoinController {
 
 	@Resource(name = "JoinService")
@@ -35,7 +40,7 @@ public class JoinController {
 	
 		@RequestMapping(value = "user/user/join.do")
 		public String insertinfo(HttpServletRequest request, ModelMap model) throws Exception {
-			log.info("로그인 로직 실행");
+			log.info("회원가입 로직 실행");
 			
 		  //회원가입 결과에 대한 메시지를 전달할 변수
 		    String msg= "";
@@ -50,8 +55,22 @@ public class JoinController {
 			String month = CmmUtil.nvl(request.getParameter("month"));
 			String datey = CmmUtil.nvl(request.getParameter("date"));
 			String gender = CmmUtil.nvl(request.getParameter("gender"));
-			String allergy = CmmUtil.nvl(request.getParameter("allergy"));
 			String date = CmmUtil.nvl((year)+("-"+month)+("-"+datey));
+			String lang = CmmUtil.nvl(request.getParameter("lang"));
+			//효율적인 문자열 붙이기를 위한 스트링빌더 사용
+			StringBuilder allergySB= new StringBuilder();
+			for(int i =0;i<8;i++) {
+				String str= CmmUtil.nvl(request.getParameter( ("allergy"+(i+1))  ) );
+				
+				if(!str.equals("") && !str.equals("undifined")) {
+					log.info("str : "+str);
+					allergySB.append(str);
+					if(i!=7)
+					allergySB.append(",");
+				}
+			}
+			String allergy = allergySB.toString();
+			
 			log.info("user_id : "+id);
 			log.info("user_password : "+password);
 			log.info("user_name : "+name);
@@ -72,6 +91,7 @@ public class JoinController {
 			uDTO.setUser_date(date);
 			uDTO.setUser_gender(gender);
 			uDTO.setUser_allergy(allergy);
+			uDTO.setUser_lang(lang);
 
 			int res = JoinService.insertinfo(uDTO);
 
@@ -80,9 +100,9 @@ public class JoinController {
 	            msg = "회원가입에 성공하였습니다.";
 	         //추후 회원가입 입력화면에서 ajax를 활용해서 아이디 중복, 이메일 중복을 체크하길 바람
 	         }else if (res==2) {
-	            msg = "이미 가입된 아이디 입니다.";
+	            msg = "이미 등록된 아이디 입니다. \n 다른 아이디를 입력해주세요.";
 	         }else {
-	            msg = "오류로 인해 회원가입이 실패하였습니다";
+	            msg = "오류로 인해 회원가입에 실패하였습니다.";
 	         }
 			
 	      }catch(Exception e) {

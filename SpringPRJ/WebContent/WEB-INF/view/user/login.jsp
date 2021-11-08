@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html class="no-js" lang="">
+<html>
 <head>
+
 <!-- meta charset -->
 <meta charset="utf-8">
 <!-- site title -->
@@ -25,11 +26,11 @@
 <link rel="stylesheet" href="/resource/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resource/css/main.css">
 <link rel="stylesheet" href="/resource/css/style.css">
-<link id="color-changer" rel="stylesheet"
-	href="/resource/css/colors/color-0.css">
 </head>
 
 <body>
+
+
 
 	<div class="preloader">
 		<div class="loading-mask"></div>
@@ -39,22 +40,7 @@
 		<div class="loading-mask"></div>
 	</div>
 
-	<div class="preview-wrapper">
-		<div class="switcher-head">
-			<span>Style Switcher</span>
-			<div class="switcher-trigger tf-tools"></div>
-		</div>
 
-		<div class="switcher-body">
-			<h4>Choose Color:</h4>
-			<ul class="color-options list-none">
-				<li class="c0" data-color="red" title="Default">Default</li>
-				<li class="c1" data-color="blue" title="Red">Red</li>
-				<li class="c2" data-color="green" title="Green">Green</li>
-				<li class="c3" data-color="yellow" title="Blue">Blue</li>
-			</ul>
-		</div>
-	</div>
 
 	<main class="site-wrapper">
 		<div class="pt-table">
@@ -73,11 +59,11 @@
 									<!--<h2>All <span class="primary">for you</span><span class="title-bg">Welcome</span>-->
 								</h2>
 								<p>
-									올포유는 전 세계 알러지 환자를 위한 실시간 알레르기 정보 확인 웹 사이트입니다.<br> 당신을 위한,
-									안전한 먹거리를 위해 AII FOR YOU
+									AllForYou는 전 세계 알레르기 환자를 위한 실시간 알레르기 정보 확인 사이트입니다.<br> 당신을 위한, 안전한 먹거리를 위해 ALL FOR YOU
 								</p>
 							</div>
 						</div>
+				
 					</div>
 					<!-- /.row -->
 
@@ -97,13 +83,14 @@
                                             <input type="text" class="form-control"  placeholder="Enter your name">
                                         </div>
                                     </div> -- ./col- -->
-							<form action="/Projects/index.do" method="post">
-								<div id="contact-form" class="row contact-form no-gutter">
+							<form action="/Projects/index.do">
+								<div id="contact-form" class="row contact-form no-gutter"
+									method="post">
 									<div class="col-xs-12 col-sm-6 email_length">
 										<div class="input-field email">
 											<span class="input-icon" id="email"><i
 												class="tf-envelope2"></i></span> <input type="email"
-												class="form-control" name="id" placeholder="이메일을 입력해주세요"></input>
+												class="form-control" name="id" placeholder="아이디를 입력해주세요."></input>
 										</div>
 									</div>
 									<!-- ./col- -->
@@ -111,7 +98,7 @@
 										<div class="input-field">
 											<span class="input-icon" id="subject"><i
 												class="tf-ion-android-unlock"></i></span> <input type="password"
-												class="form-control" name="pwd" placeholder="비밀번호를 입력해주세요"></input>
+												class="form-control" name="pwd" placeholder="비밀번호를 입력해주세요."></input>
 										</div>
 									</div>
 									<!-- ./col- -->
@@ -190,5 +177,6 @@
 	<script src="/resource/js/jquery-validation.min.js"></script>
 	<script src="/resource/js/form.min.js"></script>
 	<script src="/resource/js/main.js"></script>
+	
 </body>
 </html>

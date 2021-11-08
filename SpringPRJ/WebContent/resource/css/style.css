@@ -101,6 +101,8 @@ span{color:#ddd;}
 	font-size:2.2pc;
 	
 }
+
+
 .h2_seat_color{
 	color:#000;
 	 font-weight: 600;
@@ -151,6 +153,31 @@ span{color:#ddd;}
 	color: #FA6862;
 }
 
+.input_file{
+  padding: 6px 25px;
+  background-color:#FF6600;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+/*버튼 숨기기*/
+.file_hidden label {
+	display: inline-block;
+	padding: .5em .75em;
+	color: #999;
+	font-size: inherit;
+	line-height: normal;
+	vertical-align: middle;
+	background-color: #fdfdfd;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	
+	}
+
+
 @media ( min-width : 1200px) {
 	img {
 		max-width: 100%;
@@ -174,6 +201,11 @@ span{color:#ddd;}
 	.clear_div {
 		margin-left: 13%;
 		width: 800px;
+	}
+	
+	/*마이페이지 회원가입 중간크기*/
+	.mid{
+		width: 84%;
 	}
 }
 

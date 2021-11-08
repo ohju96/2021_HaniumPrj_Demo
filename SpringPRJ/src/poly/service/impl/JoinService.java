@@ -27,9 +27,9 @@ public class JoinService implements IJoinService {
 	      if (uDTO == null) {
 	         uDTO = new ProjectsDTO();
 	      }
-	      
+
 	      log.info("서비스 :" + uDTO.getUser_id());
-	      
+	    
 	    //회원 가입 중복방지를 위해 DB에서 데이터를 조회
 	    ProjectsDTO rDTO = JoinMapper.getUserExists(uDTO);
 		
@@ -44,8 +44,8 @@ public class JoinService implements IJoinService {
 	      //회원가입이 중복이 아니므로 회원가입 진행함
 	      } else {
 	         //회원가입
+	    	 log.info("회원가입 시작");
 	         int success = JoinMapper.insertinfo(uDTO);
-	         log.info("회원가입 시작");
 	         
 	         //db에 데이터가 등록되었다면,
 	         if(success > 0) {

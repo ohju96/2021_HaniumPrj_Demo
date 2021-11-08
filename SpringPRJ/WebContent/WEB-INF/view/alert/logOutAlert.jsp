@@ -12,7 +12,7 @@ String user_name = (String)session.getAttribute("name");
 <body>
 
 <script>
-alert('로그아웃에 성공하였습니다.')
+alert('로그아웃에 성공하였습니다..')
 document.location.href="/user/login.do"
 </script>
 

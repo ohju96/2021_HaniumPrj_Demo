@@ -14,4 +14,12 @@
 	WHERE USER_ID = #{user_id}
 	
 	</update>
+	
+	<!-- 비밀번호가 일치하는지 알아보기 -->		
+	<select id="getPWExists" parameterType="ProjectsDTO" resultType="ProjectsDTO">
+		 SELECT 
+		 (CASE WHEN USER_PWD=#{user_pwdck} THEN 'Y' ELSE 'N' END) AS EXISTS_YN
+		 FROM USER_INFO 
+		 WHERE USER_ID=#{user_id}
+	</select>
 </mapper>

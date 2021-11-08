@@ -24,7 +24,7 @@ if (jspRes.equals("1")){
 } else{
 %>
 	<script>
-	alert('삭제 요청에 실패하였습니다. 관리자에게 문의해주세요.')
+	alert('삭제 요청에 실패하였습니다. 관리자에게 문의해주세요')
 	document.location.href="/community/boardlist.do"
 	</script>
 <%

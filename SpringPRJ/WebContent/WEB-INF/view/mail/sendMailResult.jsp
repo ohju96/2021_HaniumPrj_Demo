@@ -20,7 +20,7 @@ String contents = CmmUtil.nvl(request.getParameter("contents"));
 if (jspRes.equals("1")){
 %>		
 	<script>
-	alert('<%=toMail%> 로 임시 비밀번호를 발송했습니다.')
+	alert('<%=toMail%> 로 임시비밀번호를 발송하였습니다.')
 	document.location.href="/user/login.do"
 	</script>
 
@@ -28,7 +28,7 @@ if (jspRes.equals("1")){
 } else{
 %>
 	<script>
-	alert('<%=toMail%> 로 임시 비밀번호 발송에 실패했습니다.')
+	alert('<%=toMail%> 로 임시비밀번호 발송에 실패했습니다.\n 관리자에게 문의해주세요.')
 	document.location.href="/user/login.do"
 	</script>
 <%

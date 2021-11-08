@@ -1,5 +1,7 @@
 package poly.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,19 +40,16 @@ public class LoginController {
    public String index(HttpServletRequest request, HttpServletResponse response, HttpSession session,
          ModelMap model) throws Exception {
       
-      log.info(this.getClass().getName()+" : 로그인 시작");
+      log.info("로그인 시작");
       
       int res = 0;
       
       ProjectsDTO mDTO = null;
-      
       try {
          String id = CmmUtil.nvl(request.getParameter("id"));
          log.info("user_id : " + id);
          String password = CmmUtil.nvl(request.getParameter("pwd"));
          log.info("user_pwd : " + password);
-         
-         
          
          mDTO = new ProjectsDTO();
          
@@ -59,24 +58,25 @@ public class LoginController {
          mDTO.setUser_pwd(EncryptUtil.encHashSHA256(password));
          log.info("user_pwd2 : " + password);
          
-         res = LoginService.Loginpage(mDTO);
-         log.info("서비스에서 로그인 성공, 실패 여부가 성공적으로 넘어옴");
+         List<ProjectsDTO> rList = LoginService.getAllergy(mDTO);
+         log.info(rList.get(0).getUser_allergy());
          
+         res = LoginService.Loginpage(mDTO);
          if (res==1) {
             session.setAttribute("id", id);
-            log.info("로그인 성공했으므로 id를 세션에 담음");
+         }
+         if(rList.size()>1) {
+        	 session.setAttribute("allergy",rList.get(0).getUser_allergy());
          }
       } catch (Exception e) {
          res = 2;
          
          log.info(e.toString());
          e.printStackTrace();
-         
       } finally {
-
+         log.info("로그인 끝");
 
          model.addAttribute("res", String.valueOf(res));
-         log.info(this.getClass().getName()+"로그인 끝");
          
          mDTO = null;
       }

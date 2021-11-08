@@ -1,5 +1,7 @@
 package poly.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -21,29 +23,40 @@ public class LoginService implements ILoginService {
    
    @Override
    public int Loginpage(ProjectsDTO mDTO) throws Exception {
-      log.info(this.getClass().getName()+" Loginpage 호출 !!");
+	   
+	   if(mDTO==null) {
+		   mDTO = new ProjectsDTO();
+		   log.info("mDTO를 강제로 메모리에 올림");
+	   }
+      
       // 로그인 성공 : 1 , 실패 : 0
       int res = 0;
       
       
-   
       ProjectsDTO uDTO = LoginMapper.checkLogin(mDTO);
-      log.info("mapper에 mDTO를 넘겨주고 쿼리문을 날려 uDTO에 결과를 저장");
+   
       
       if (uDTO==null) {
          uDTO = new ProjectsDTO();
-         log.info("uDTO가 널이어서 강제로 메모리에 올림");
       }
    
       if(CmmUtil.nvl(uDTO.getUser_id()).length()>0) {
-         log.info("로그인 성공");
-         res = 1;
          
+         res = 1;
       }
       
-      log.info(this.getClass().getName()+" Loginpage 끝 !!");
+      
       return res;
    }
+
+
+@Override
+public List<ProjectsDTO> getAllergy(ProjectsDTO mDTO) throws Exception {
+	
+	List<ProjectsDTO> rList = LoginMapper.getAllergy(mDTO);
+	
+	return rList;
+}
 
 
 }

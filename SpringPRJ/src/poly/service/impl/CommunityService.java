@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import poly.dto.ProjectsDTO;
 import poly.persistance.mapper.ICommunityMapper;
 import poly.service.ICommunityService;
+import poly.util.PagingVO;
 
 
 @Service("CommunityService")
@@ -27,7 +28,7 @@ public class CommunityService implements ICommunityService {
 		
 		if(uDTO ==null) {
 			log.info("게시글 입력 실패");
-			ProjectsDTO zDTO = new ProjectsDTO();
+			uDTO = new ProjectsDTO();
 			log.info("DTO에 값이 없어 메모리에 강제로 올렸습니다.");
 			
 		} else {
@@ -61,6 +62,11 @@ public class CommunityService implements ICommunityService {
 	
 	@Override
 	public ProjectsDTO getBoard(ProjectsDTO rDTO) throws Exception {
+		
+		if(rDTO==null) {
+			rDTO = new ProjectsDTO();
+			log.info("rDTO == null");
+		}
 		
 		ProjectsDTO pDTO = new ProjectsDTO();
 		pDTO = CommunityMapper.getBoard(rDTO);
@@ -102,7 +108,7 @@ public class CommunityService implements ICommunityService {
 		
 		if(uDTO ==null) {
 			log.info("게시글 삭제 실패");
-			ProjectsDTO zDTO = new ProjectsDTO();
+			 uDTO = new ProjectsDTO();
 			log.info("DTO에 값이 없어 메모리에 강제로 올렸습니다.");
 			
 		} else {
@@ -114,5 +120,16 @@ public class CommunityService implements ICommunityService {
 			
 		}
 		return res;
+	}
+	
+	@Override
+	public int countBoard() throws Exception {
+		// TODO Auto-generated method stub
+		return CommunityMapper.countBoard();
+	}
+
+	@Override
+	public List<ProjectsDTO> selectBoard(PagingVO vo) throws Exception {
+		return CommunityMapper.selectBoard(vo);
 	}
 }

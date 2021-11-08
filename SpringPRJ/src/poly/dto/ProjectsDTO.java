@@ -5,11 +5,14 @@ public class ProjectsDTO {
 
 	private String user_id;
 	private String user_pwd;
+	private String user_pwdck;
 	private String user_name;
 	private String tomail;
+	private String rownum;
 	private String user_date;
 	private String user_gender;
 	private String user_allergy;
+	private String user_lang;
 	private String board_title;
 	private String board_writer;
 	private String board_contents;
@@ -26,6 +29,24 @@ public class ProjectsDTO {
 	private String exists_yn;
 	
 	
+	public String getUser_pwdck() {
+		return user_pwdck;
+	}
+	public void setUser_pwdck(String user_pwdck) {
+		this.user_pwdck = user_pwdck;
+	}
+	public String getUser_lang() {
+		return user_lang;
+	}
+	public void setUser_lang(String user_lang) {
+		this.user_lang = user_lang;
+	}
+	public String getRownum() {
+		return rownum;
+	}
+	public void setRownum(String rownum) {
+		this.rownum = rownum;
+	}
 	public String getReg_id() {
 		return reg_id;
 	}

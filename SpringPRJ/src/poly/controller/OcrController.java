@@ -1,28 +1,31 @@
 package poly.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import poly.dto.OcrDTO;
+import com.mysql.cj.Session;
+
+import poly.dto.SearchAllerDTO;
 import poly.service.IOcrService;
-import poly.util.CmmUtil;
 import poly.util.DateUtil;
 import poly.util.FileUtil;
-import poly.util.PapagoUtil;
 import poly.util.UrlUtil;
 
-@Controller
-public class OcrController {
+@Controller("OcrController")
+public class OcrController{
 	private Logger log = Logger.getLogger(getClass());
 
 	/*
@@ -39,9 +42,16 @@ public class OcrController {
 	 */
 	
 	@RequestMapping(value="ocr/imageFileUpload")
-	public String Index() {
+	public String Index(HttpServletRequest request, HttpServletResponse reponse, HttpSession session) {
 		log.info(this.getClass().getName() + ".imageFileUpload! ");
-		
+		log.info(session.getAttribute("user_allergy"));
+		if (session.getAttribute("id") == null) {
+			String url = "/user/login.do";
+			String msg = "로그인이 필요합니다.";
+			request.setAttribute("url", url);
+			request.setAttribute("msg", msg);
+			return "/redirect";
+		}
 		return "/ocr/ImageFileUpload";
 	}
 	
@@ -49,83 +59,64 @@ public class OcrController {
 	 * 파일 업로드 및 이미지 인식
 	 */
 	@RequestMapping(value="ocr/getReadforImageText")
-	public String getReadforImageText(HttpServletRequest request, HttpServletResponse response, ModelMap model,
+	@ResponseBody
+	public List<SearchAllerDTO> getReadforImageText(HttpServletRequest request, HttpServletResponse response, ModelMap model,HttpSession session,
 			@RequestParam(value= "fileUpload") MultipartFile mf) throws Exception {
-		
 		log.info("OcrController: 컨트롤러 시작");
-		
-		//OCR 실행결과
 		String res = "";
 		String t_res = "";
-		// 업로드하는 실제 파일명
-		// 다운로드 기능 구현시, 임의로 정의된 파일명을 원래대로 만들어주기 위한 목적
 		String originalFileName = mf.getOriginalFilename();
-		log.info("인식된 파일 이름: " + originalFileName);
-		//파일 확장자 가져오기
+		log.info(originalFileName);
 		String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1, originalFileName.length()).toLowerCase();
-		
-		// 이미지 파일 만 실행되도록함
+		SearchAllerDTO saDTO = new SearchAllerDTO();
 		if (ext.equals("jpeg") || ext.equals("jpg") || ext.equals("gif") || ext.equals("png")) {
-			
-			//웹 서버에 저장되는 파일 이름
-			// 업로드하는 파일 이름에 한글, 특수문자들이 저장될수 있기 때문에 강제로 영어로 숫자로 구성된 파일명으로 변경해서 저장한다.
-			// 리눅스나 유닉스 등 운영체제는 다국어 지원에 취약하기 때문이다.
 			String saveFileName = DateUtil.getDateTime("hhmmss") + "." + ext;
-			
-			// 웹 서버에 업로드한 파일 저장하는 물리적 경로.
-			String saveFilePath = FileUtil.mkdirForDate(FILE_UPLOAD_SAVE_PATH);
-			
-			String fullFileInfo = saveFilePath + "/"+ saveFileName;
-			
-			// 정상적으로 값이 생성되었는지 로그 찍어서 확인
-			log.info("파일확장자 : " + ext);
-			log.info("저장될 파일 이름 : " + saveFileName);
-			log.info("저장될 파일 경로 : " +saveFilePath);
-			log.info("전체 경로 : " + fullFileInfo);
-			
-			// 업로드 되는 파일을 서버에 저장
-			mf.transferTo(new File(fullFileInfo));
-			
-			UrlUtil uu = new UrlUtil();
-			
-			String url = "http://127.0.0.1:5000";
-	        String api = "/text?";
-	        String iname = "ipath=";
-	        String ipath = fullFileInfo;
-	        
-	        log.info("url :" +url +"api : "+ api +"api : "+ iname +"ipath : "+ ipath);
-	        res = uu.urlReadforString(url + api + iname + ipath);
-	        t_res = PapagoUtil.converter(res, "en");
-	        log.info("번역 결과 :" + t_res);
 
-			OcrDTO pDTO = new OcrDTO();
-			
-			pDTO.setFileName(saveFileName); //저장되는 파일명
-			pDTO.setFilePath(saveFilePath); //저장되는 경로
-			
-			OcrDTO rDTO = ocrService.getReadforImageText(pDTO);
-			
-			if (rDTO == null) {
-				rDTO = new OcrDTO();	
+			String saveFilePath = FileUtil.mkdirForDate(FILE_UPLOAD_SAVE_PATH);
+
+			String fullFileInfo = saveFilePath + "/" + saveFileName;
+
+			log.info(ext);
+			log.info(saveFileName);
+			log.info(saveFilePath);
+			log.info(fullFileInfo);
+
+			mf.transferTo(new File(fullFileInfo));
+
+			UrlUtil uu = new UrlUtil();
+
+			String url = "http://127.0.0.1:5000";
+			String api = "/image?";
+			String iname = "ipath=";
+			String ipath = fullFileInfo;
+
+			log.info("url :" +url +"api : "+ api +"api : "+ iname +"ipath : "+ ipath);
+			res = uu.urlReadforString(url + api + iname + ipath);
+			log.info(res);
+			System.out.println("res :" + t_res);
+			saDTO.setFood_name(res);
+		} 
+		List<SearchAllerDTO> rList = ocrService.getFoodList(saDTO);
+		List<String> allergyList = (List<String>) session.getAttribute("UserAllerList");
+		String msg = "";
+		for(int i=0; i<allergyList.size(); i++) {
+			log.info("나의알러지 : "+allergyList.get(i));
+			for(int j=0; j<rList.get(0).getfood_allergy1().size(); j++) {
+				log.info("음식알러지 : " + rList.get(0).getfood_allergy1().get(j) );
+				if(allergyList.get(i).equals(rList.get(0).getfood_allergy1().get(j)) ) {
+					msg = msg + rList.get(0).getfood_allergy1().get(j) +" ";
+				}
 			}
-			
-			res = CmmUtil.nvl(rDTO.getTextFromImage());
-			
-			rDTO = null;
-			pDTO = null;
-			
-		}else {
-			res = "이미지 파일이 아니라서 인식이 불가능합니다.";
-			
 		}
 		
-		// 크롤링 결과를 넣어주기
-		model.addAttribute("t_res", t_res);
-		
-		
-		log.info("OcrController: 컨트롤러 종료! ");
-		
-		return "/ocr/TextFromImage";
-			}
+		if(msg.equals("")) {
+			msg = "안전 : 사용자의 알레르기 정보와 일치하는 성분이 없습니다. ";
+		}else {
+			msg = "경고  : 알레르기를 유발하는 성분들이 있습니다. 섭취에 유의하세요.\n알레르기 성분 :" +msg; 
+		}
+		rList.get(0).setAlert(msg);
+		log.info(msg);
+		return rList;
 	}
+}
 
