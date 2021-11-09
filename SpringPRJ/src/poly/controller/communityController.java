@@ -1,6 +1,7 @@
  package poly.controller;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -15,8 +16,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import poly.dto.CommentDTO;
 import poly.dto.ProjectsDTO;
+import poly.service.ICommentService;
 import poly.service.ICommunityService;
+import poly.service.impl.CommentService;
 import poly.util.CmmUtil;
 import poly.util.PagingVO;
 
@@ -27,6 +31,9 @@ public class communityController {
 	
 	@Resource(name = "CommunityService")
 	private ICommunityService CommunityService;
+	
+	@Resource(name = "CommentService")
+	private ICommentService CommentService;
 	
 	
 	
@@ -153,6 +160,31 @@ public class communityController {
 		
 		model.addAttribute("rDTO",rDTO);
 		log.info(this.getClass().getName());
+		
+		 // 1. DB에서 조회를 하기전에 먼저 DB의 조회 결과를 저장할 변수 선언 (프로젝트DTO안에 내가 사용할 게터,세터가 있기때문에 ..)
+	      List<CommentDTO> rList = new ArrayList<>();
+	      
+	      //try catch ==> 예외처리를 위한 구문 위에 throws Exception 을 사용했기 때문에 안써도 되지만 좀더 세밀한 예외처리를 할수 있음
+	      //try : 오류가 없으면 catch문을 무시하고 쭉 내려가면서 실행 
+	      try {
+	         rList=CommentService.getCommentList();
+	         
+	         // rlist가 가진 원소만큼 for문이 돌아간다
+	         for(CommentDTO p : rList) {
+	        	 log.info("#####");
+	         }
+	         
+	      // try문이 실행되다가 오류가 생기면 나머지 구문을 무시하고 catch문 으로 들어옴 
+	      } catch(Exception e) {
+	         log.info(e.getStackTrace());
+	         
+	      // 오류가 있던지 없던지 항상 실행되는 구문
+	      // 오류가 있던 없던 모델맵 안에 rlist를 담아줘야 추후의 행동을 할수 있기때문에 ... finally 안에 담는다    
+	      }finally {
+	         // addAttribute 키, 벨류로 이뤄저있는 함수 
+	         model.addAttribute("rList", rList);
+	      }
+		
 		return "/community/boardsee";
 	}
 	
