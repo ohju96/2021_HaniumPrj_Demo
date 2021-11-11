@@ -7,10 +7,12 @@
 		<insert id = "CommentWrite" parameterType="CommentDTO"> 
 		INSERT INTO COMMENT(
 			COMMENT_CONTENTS,
-			COMMENT_ID
+			COMMENT_ID,
+			BOARD_SEQ
 		) values(
 			#{comment_contents},
-			#{comment_id}
+			#{comment_id},
+			#{board_seq}
 		)
 	</insert>
 	
@@ -20,6 +22,9 @@
 		COMMENT_CONTENTS, COMMENT_ID, COMMENT_RDT 
 	FROM 
 		COMMENT
+		
+		WHERE BOARD_SEQ = #{board_seq}
+	
 	</select>
 
 <!-- 댓글 수정 -->

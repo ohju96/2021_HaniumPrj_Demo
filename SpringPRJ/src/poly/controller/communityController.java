@@ -141,12 +141,14 @@ public class communityController {
 		String no = CmmUtil.nvl(request.getParameter("number").toString());
 		//게시판 페이지에서 number를 잘 받아왔는지 찍어보는 로그
 		log.info(no);
-		
+		session.setAttribute("no", no);
 		//게시판 페이지에서 받아온 number값을 DTO에 넣어서 DB로 전송
 		ProjectsDTO pDTO = new ProjectsDTO();
+		//게시판 번호를 dto에 셋팅
 		pDTO.setBoard_seq(no);
-		
+
 		ProjectsDTO rDTO = new ProjectsDTO();
+		//게시판 정보 불러옴
 		rDTO = CommunityService.getBoard(pDTO);
 		pDTO=null;
 		
@@ -156,7 +158,7 @@ public class communityController {
 			log.info("rDTO 널처리");
 		}
 		
-		log.info(rDTO==null);
+		log.info("DB에서 받아온 게시판 상세보기 값이 널인가 ? : "+rDTO==null);
 		
 		model.addAttribute("rDTO",rDTO);
 		log.info(this.getClass().getName());
@@ -167,12 +169,11 @@ public class communityController {
 	      //try catch ==> 예외처리를 위한 구문 위에 throws Exception 을 사용했기 때문에 안써도 되지만 좀더 세밀한 예외처리를 할수 있음
 	      //try : 오류가 없으면 catch문을 무시하고 쭉 내려가면서 실행 
 	      try {
-	         rList=CommentService.getCommentList();
-	         
-	         // rlist가 가진 원소만큼 for문이 돌아간다
-	         for(CommentDTO p : rList) {
-	        	 log.info("#####");
-	         }
+	    	 
+	    	  CommentDTO aDTO = new CommentDTO();
+	    	  aDTO.setBoard_seq(no);
+	    	 //게시판 번호를 매개변수로 댓글정보를 조회함
+	         rList=CommentService.getCommentList(aDTO);
 	         
 	      // try문이 실행되다가 오류가 생기면 나머지 구문을 무시하고 catch문 으로 들어옴 
 	      } catch(Exception e) {

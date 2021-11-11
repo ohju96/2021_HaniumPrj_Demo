@@ -7,7 +7,14 @@ public class CommentDTO {
 	private String comment_id;
 	private String comment_rdt;
 	private String comment_cdt;
+	private String board_seq;
 	
+	public String getBoard_seq() {
+		return board_seq;
+	}
+	public void setBoard_seq(String board_seq) {
+		this.board_seq = board_seq;
+	}
 	public String getComment_seq() {
 		return comment_seq;
 	}

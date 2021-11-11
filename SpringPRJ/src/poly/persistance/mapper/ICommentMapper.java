@@ -9,10 +9,10 @@ import poly.dto.ProjectsDTO;
 @Mapper("CommentMapper")
 public interface ICommentMapper {
 
-	CommentDTO CommentWrite(CommentDTO pDTO)throws Exception;
+	int CommentWrite(CommentDTO qDTO)throws Exception;
 	
 	// 댓글 등록
 	
-	List<CommentDTO> getCommentList() throws Exception;
+	List<CommentDTO> getCommentList(CommentDTO pDTO) throws Exception;
 
 }

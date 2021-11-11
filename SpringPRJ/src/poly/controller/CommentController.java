@@ -19,6 +19,7 @@ import poly.dto.CommentDTO;
 import poly.dto.ProjectsDTO;
 import poly.service.ICommentService;
 import poly.service.impl.CommentService;
+import poly.util.CmmUtil;
 import poly.util.PagingVO;
 
 
@@ -44,12 +45,15 @@ public class CommentController {
 		log.info("contents : " + contents);
 		log.info("id : " + id);
 		
-		CommentDTO pDTO = new CommentDTO();
+		String seq = CmmUtil.nvl((String)session.getAttribute("no"));
 		
-		pDTO.setComment_contents(contents);
-		pDTO.setComment_id(id);
 		
-		int res = CommentService.writeComment(pDTO);
+		CommentDTO qDTO = new CommentDTO();
+		qDTO.setBoard_seq(seq);
+		qDTO.setComment_contents(contents);
+		qDTO.setComment_id(id);
+		
+		int res = CommentService.writeComment(qDTO);
 		
 		if(res==0) {
 			log.info("댓글 작성 실패");

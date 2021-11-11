@@ -23,25 +23,24 @@ public class CommentService implements ICommentService {
 	private Logger log = Logger.getLogger(this.getClass());
 
 	@Override
-	public int writeComment(CommentDTO pDTO) throws Exception {
+	public int writeComment(CommentDTO qDTO) throws Exception {
 		
 		
-		if(pDTO == null) {
-			pDTO = new CommentDTO();
+		
+		if(qDTO == null) {
+			qDTO = new CommentDTO();
 		} 
 		int res = 0;
-		
-	      CommentDTO uDTO = CommentMapper.CommentWrite(pDTO);
+	      int res1 = CommentMapper.CommentWrite(qDTO);
 	      
 	      
-	      if (uDTO==null) {
-	         uDTO = new CommentDTO();
+	      if (res1==0) {
+	         log.info("db저장 실패");
+	      }else {
+	    	  res = 1;
+	    	  log.info("db저장 성공");
 	      }
 	   
-	      if(CmmUtil.nvl(uDTO.getComment_id()).length()>0) {
-	         
-	         res = 1;
-	      }
 
 		
 		
@@ -49,10 +48,11 @@ public class CommentService implements ICommentService {
 	}
 	
 	@Override
-	public List<CommentDTO> getCommentList() throws Exception {
+	public List<CommentDTO> getCommentList(CommentDTO pDTO) throws Exception {
 		List<CommentDTO> rlist = new ArrayList<>();
 		
-		rlist = CommentMapper.getCommentList();
+		rlist = CommentMapper.getCommentList(pDTO);
+
 		
 		if(rlist==null) {
 			//rlist가 null 일 경우 오류 방지를 위해 강제로 메모리에 LIST 를 올림 
@@ -62,7 +62,7 @@ public class CommentService implements ICommentService {
 		else {
 			log.info("success");
 		}
-		
+		log.info(rlist.get(0).getBoard_seq());
 		return rlist;
 	}
 
