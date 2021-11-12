@@ -19,7 +19,7 @@
 <!-- 댓글 보기 -->
 	<select id = "getCommentList" parameterType="CommentDTO" resultType="CommentDTO">
 	SELECT 
-		COMMENT_CONTENTS, COMMENT_ID, COMMENT_RDT 
+		COMMENT_CONTENTS, COMMENT_ID, COMMENT_RDT, COMMENT_SEQ 
 	FROM 
 		COMMENT
 		
@@ -27,22 +27,12 @@
 	
 	</select>
 
-<!-- 댓글 수정 -->
-<!-- 	<update id="updateComment" parameterType="CommentDTO">
-	UPDATE
-		COMMENT
-	SET
-		COMMENT_CONTENT = #{comment_contents}
-	WHERE
-		COMMENT_SEQ = #{comment_seq}
-	</update> -->
-	
 <!-- 댓글 삭제 -->
-<!-- 	<delete id="deleteComment" parameterType="CommentDTO">
+	<delete id="deleteComment" parameterType="CommentDTO">
 	DELETE FROM
-		COMENT
+		COMMENT
 	WHERE
-		COMMENT_SEQ = #{comment_seq}
+		COMMENT_SEQ =#{comment_seq}
 	</delete>
-	 -->
+
 </mapper>

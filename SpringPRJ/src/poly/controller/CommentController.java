@@ -69,7 +69,31 @@ public class CommentController {
 		return "/alert/commentAlert";
 	}
 	
-	//댓글 보기
+	// ========================================= 제 로직
+	@RequestMapping(value = "community/commentdelete")
+	public String commentdelete(HttpServletRequest request, ModelMap model) throws Exception {
+		
+		log.info("댓글 삭제 시작 ! ! ! ! !");
+
+		String seq = CmmUtil.nvl(request.getParameter("number").toString());
+		//String seq = CmmUtil.nvl((String)request.getParameter("comment_seq"));
+		log.info(seq);
+		
+		CommentDTO aDTO = new CommentDTO();
+		aDTO.setComment_seq(seq);
+		
+		int res = CommentService.deleteComment(aDTO);
+
+		
+		if (res == 0) {
+			log.info("게시글 삭제 실패");
+		} else if (res == 1) {
+			log.info("게시글 삭제 성공");
+		}
+		
+		model.addAttribute("res", String.valueOf(res));	
+		return "/alert/commentdeleteAlert";
+	}
 	 
 	     
 	      

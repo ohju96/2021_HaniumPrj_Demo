@@ -12,6 +12,9 @@ public interface ICommentService {
 
 	List<CommentDTO> getCommentList(CommentDTO pDTO) throws Exception;
 
+	// 댓글 삭제
+	int deleteComment(CommentDTO aDTO) throws Exception;
+
 
 
 }

@@ -103,20 +103,23 @@
    <div>
     <h3>댓글</h3>
    
-			<%
+         <%
                for (CommentDTO p : rList) {
             %>
+             <div style="padding:14px 0 14px 0; border-top: 1px solid #999;">
             <div>
-            <div><b>작성자 : <%=pDTO.getUser_id() %></b></div>
+            <div><b>작성자 : <%=p.getComment_id() %></b></div>
             <div><b>작성일 : <%=p.getComment_rdt() %></b></div>
-            <div><b>댓글 : <%=p.getComment_contents() %></b></div>
+            <div><b>댓글 : <%=p.getComment_contents() %></b>
+      <div class="div_button2 div_button3">
+                     <% if(user_id.equals(p.getComment_id())) { %>
+                <button type="button" class="btn" onclick="location.href='/community/commentdelete.do?number=<%=p.getComment_seq()%>'" style="margin-right:10px;">삭제</button>
+                      <% } %> 
+      </div> 
+   </div>
             </div>
            <br>
-               <div class="div_button2 div_button3">
-               <% if(user_id.equals(pDTO.getUser_id())) %>
-                              <button type="button" class="btn" style="padding:0px; font-size:14px; margin-right: 10px;" onclick="location.href='/community/boardupdate.do'">댓글 수정</button>
-                  <button type="button" class="btn" style="padding:0px; font-size:14px;" onclick="location.href='/community/boarddelete.do'">댓글 삭제</button>
-            </div>
+               
             <%
                }
             %>
@@ -125,7 +128,7 @@
     <!--- 댓글 입력 폼 -->
     <div>
         <form action="/comment/write.do" method="post">
-            <input type="hidden" name="comment_id" id="" class="" size="15" value="<%=pDTO.getUser_id() %>">
+            <input type="hidden" name="comment_id" id="" class="" size="15" value="<%=user_id %>">
             <div style="margin-top:10px; margin-top:10px; margin-bottom:10px; float:left; width:100%;" class="inline-div">
                 <textarea name="contents" class="inline-txtarea" id="content" style="width:90%;"></textarea>
                 <button id="" class="content_bot inline-txtarea" type="submit">댓글</button>

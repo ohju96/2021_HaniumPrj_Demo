@@ -66,4 +66,21 @@ public class CommentService implements ICommentService {
 		return rlist;
 	}
 
+	@Override
+	public int deleteComment(CommentDTO aDTO) throws Exception {
+		
+		int res = 0;
+		
+		if(aDTO == null) {
+			log.info("댓글 삭제 실패");
+			aDTO = new CommentDTO();
+		}else {
+			log.info("댓글 삭제 시작");
+			CommentMapper.deleteComment(aDTO);
+			res = 1;
+			log.info("댓글 삭제 완료");
+		}
+		return res;
+	}
+
 }

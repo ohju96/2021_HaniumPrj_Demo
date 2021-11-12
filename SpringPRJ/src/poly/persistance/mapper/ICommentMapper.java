@@ -15,4 +15,7 @@ public interface ICommentMapper {
 	
 	List<CommentDTO> getCommentList(CommentDTO pDTO) throws Exception;
 
+	// 댓글 삭제
+	void deleteComment(CommentDTO aDTO) throws Exception;
+
 }

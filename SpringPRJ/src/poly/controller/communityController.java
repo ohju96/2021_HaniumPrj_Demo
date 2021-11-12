@@ -256,7 +256,7 @@ public class communityController {
 				public String boarddelete(HttpServletRequest request, ModelMap model) throws Exception {
 					log.info("게시글삭제 로직 실행");
 
-					String seq = CmmUtil.nvl(request.getParameter("number").toString());
+					String seq = CmmUtil.nvl(request.getParameter("number"));
 					log.info(seq);
 					
 					ProjectsDTO aDTO = new ProjectsDTO();
