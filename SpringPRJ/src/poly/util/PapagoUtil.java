@@ -19,8 +19,8 @@ import org.json.simple.parser.ParseException;
 
 public class PapagoUtil {
    public static String converter (String s, String lang) throws ParseException {
-        String clientId = "omq02kgJT2xYptp6YlDW";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "LQWm9ZgA2r";//애플리케이션 클라이언트 시크릿값";
+        String clientId = "애플리케이션 클라이언트 아이디값";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "애플리케이션 클라이언트 시크릿값";//애플리케이션 클라이언트 시크릿값";
 
         String apiURL = "https://openapi.naver.com/v1/papago/n2mt";
         String text;

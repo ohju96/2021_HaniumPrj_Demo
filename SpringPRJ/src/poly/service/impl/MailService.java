@@ -28,8 +28,6 @@ public class MailService implements IMailService{
 	// 해야할 일 : 경로설정 및 로그인 완료창 표시
 	@Resource(name="MailMapper")
 	private IMailMapper MailMapper;
-	//shindaepal@gmail.com
-	//thddbfk!2
 	
 	final String host = "smtp.naver.com";
 	final String user = "네이버@아이디";
